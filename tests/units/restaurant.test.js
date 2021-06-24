@@ -5,7 +5,7 @@ const Restaurant = require('../../models/restaurant.model');
 describe('getById', () => {
   describe('when getting restaurant with existing id', () => {
     it('should return restaurant', async () => {
-      Restaurant.findById = jest.fn((object) => {
+      Restaurant.findById = jest.fn(() => {
         return {
           _id: 1,
           name: 'Expresso',
@@ -78,8 +78,7 @@ describe('update', () => {
       Restaurant.findByIdAndUpdate = jest.fn((id, object) => {
         return {
           _id: id,
-          name: object.name,
-          price: object.price
+          ...object
         };
       });
       const restaurant = await restaurantService.update(1, {
