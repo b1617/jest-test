@@ -1,5 +1,13 @@
 const Restaurant = require('../models/restaurant.model');
 
+const getById = async (id) => {
+  const restaurant = Restaurant.findById(id);
+  if (!restaurant) {
+    throw new Error('Restaurant id not exist');
+  }
+  return restaurant;
+};
+
 const create = async (object) => {
   const isExistingRestaurant = await Restaurant.findOne({
     name: object.name
@@ -10,36 +18,22 @@ const create = async (object) => {
   return await Restaurant.create(object);
 };
 
-const getById = async (id) => {
-  return Restaurant.findById(id);
+const update = async (id, object) => {
+  const updatedRestaurant = await Restaurant.findByIdAndUpdate(id, object, {
+    new: true
+  });
+  if (!updatedRestaurant) {
+    throw new Error('Restaurant id not exist');
+  }
+  return updatedRestaurant;
 };
 
-// const getByCompany = async (id: string): Promise<ISlot[]> => {
-//   return await Slot.find({ company: id });
-// };
+const remove = async (id) => {
+  const removedRestaurant = await Restaurant.findByIdAndRemove(id);
+  if (!removedRestaurant) {
+    throw new Error('Restaurant id not exist');
+  }
+  return removedRestaurant;
+};
 
-// const getByCompanyAndDate = async (
-//   id: string,
-//   startDate: Date,
-//   endDate: Date
-// ): Promise<ISlot[]> => {
-//   return await Slot.find({
-//     company: id,
-//     start: { $gte: startDate },
-//     end: { $lte: endDate }
-//   });
-// };
-
-// const post = async (slot: ISlot): Promise<ISlot> => {
-//   return await Slot.create(slot);
-// };
-
-// const put = async (id: string, slot: ISlot): Promise<ISlot | null> => {
-//   return await Slot.findByIdAndUpdate(id, slot, { new: true });
-// };
-
-// const remove = async (id: string): Promise<ISlot | null> => {
-//   return await Slot.findByIdAndRemove(id);
-// };
-
-module.exports = { create, getById };
+module.exports = { create, getById, update, remove };
