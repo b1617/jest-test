@@ -9,8 +9,8 @@ const connect = async () => {
       useFindAndModify: false,
       useCreateIndex: true
     });
-    console.info('Database connected');
-  } catch (err) {
+    console.log('Database connected');
+  } catch {
     console.error('Database failed');
   }
 };
