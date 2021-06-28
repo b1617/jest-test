@@ -16,6 +16,7 @@ const init = () => {
     await disconnectDatabase();
     server.close();
   });
+  
   return supertest(server);
 };
 

@@ -22,7 +22,7 @@ describe('getById', () => {
   });
 
   describe('when getting restaurant with none existing id', () => {
-    it('should return null', async () => {
+    it('should throw error', async () => {
       Restaurant.findById = jest.fn(() => null);
       expect(async () => await restaurantService.getById(1)).rejects.toThrow(
         'Restaurant id not exist'

@@ -15,9 +15,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 app.use(express.json());
 
-app.get('/tests', async (req, res) => {
-  res.json({ message: 'test' });
-});
+
 app.use('/restaurants', restaurantRouter);
 
 const server = app.listen(port, () => {
