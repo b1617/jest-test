@@ -8,13 +8,14 @@ const app = express();
 
 const port = 8080 || process.env.PORT;
 
-if (process.env.NODE_ENV === 'development') {
+const env = process.env.NODE_ENV.trim() || 'testing';
+
+if (env === 'development') {
   mongo.connect();
   app.use(morgan('tiny'));
   app.use(cors());
 }
 app.use(express.json());
-
 
 app.use('/restaurants', restaurantRouter);
 

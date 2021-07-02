@@ -4,11 +4,11 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "set NODE_ENV=testing & jest",
-    "test:unit": "set NODE_ENV=testing & jest tests/units/*",
-    "test:integration": "set NODE_ENV=testing & jest tests/integrations/*",
-    "test:coverage": "set NODE_ENV=testing & jest --coverage",
-    "dev": "set NODE_ENV=development & nodemon app.js"
+    "test": "jest",
+    "test:unit": "jest tests/units/*",
+    "test:integration": "jest tests/integrations/*",
+    "test:coverage": "jest --coverage",
+    "dev": "set NODE_ENV=development && nodemon app.js"
   },
   "keywords": [],
   "author": "",

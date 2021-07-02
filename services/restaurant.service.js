@@ -1,7 +1,7 @@
 const Restaurant = require('../models/restaurant.model');
 
 const getById = async (id) => {
-  const restaurant = Restaurant.findById(id);
+  const restaurant = await Restaurant.findById(id);
   if (!restaurant) {
     throw new Error('Restaurant id not exist');
   }
