@@ -16,13 +16,16 @@ const init = () => {
     await disconnectDatabase();
     server.close();
   });
-  
+
   return supertest(server);
 };
 
 const connectDatabase = async () => {
   const url = `mongodb://127.0.0.1/test`;
-  await mongoose.connect(url, { useNewUrlParser: true });
+  await mongoose.connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
 };
 
 const disconnectDatabase = async () => {
