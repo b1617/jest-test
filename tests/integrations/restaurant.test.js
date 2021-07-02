@@ -4,11 +4,11 @@ const request = setup.init();
 
 describe('getRestaurantById', () => {
   const objectId = new mongoose.Types.ObjectId();
-  describe('when restaurant id exist', () => {
-    it('should return restaurant object', async () => {
+  describe('when restaurant id not exist', () => {
+    it('should throw error ', async () => {
       const response = await request.get(`/restaurants/${objectId}`);
-      console.log("response" ,response);
       expect(response.status).toBe(400);
+      expect(response.text).toMatch('Restaurant id not exist');
     });
   });
 
