@@ -4,13 +4,12 @@ const Restaurant = require('../../models/restaurant.model');
 const request = setup.init();
 
 let restaurant = null;
-let object = null;
+const object = {
+  name: 'test',
+  price: '$'
+};
 
 beforeEach(async () => {
-  object = {
-    name: 'test',
-    price: '$'
-  };
   restaurant = await Restaurant.create(object);
 });
 

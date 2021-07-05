@@ -2,21 +2,23 @@
 const restaurantService = require('../../services/restaurant.service');
 const Restaurant = require('../../models/restaurant.model');
 
+const object = {
+  _id: 1,
+  name: 'test',
+  price: '$'
+};
+
 describe('getById', () => {
   describe('when getting restaurant with existing id', () => {
     it('should return restaurant', async () => {
       Restaurant.findById = jest.fn(() => {
         return {
-          _id: 1,
-          name: 'Expresso',
-          price: '$'
+          ...object
         };
       });
       const restaurant = await restaurantService.getById(1);
       expect(restaurant).toMatchObject({
-        _id: 1,
-        name: 'Expresso',
-        price: '$'
+        ...object
       });
     });
   });
@@ -42,14 +44,11 @@ describe('create', () => {
         };
       });
       const restaurant = await restaurantService.create({
-        name: 'Expresso',
-        price: '$'
+        ...object
       });
 
       expect(restaurant).toMatchObject({
-        _id: 1,
-        name: 'Expresso',
-        price: '$'
+        ...object
       });
     });
   });
@@ -64,8 +63,7 @@ describe('create', () => {
       expect(
         async () =>
           await restaurantService.create({
-            name: 'Expresso',
-            price: '$'
+            ...object
           })
       ).rejects.toThrow('Restaurant name is already taken');
     });
@@ -82,14 +80,10 @@ describe('update', () => {
         };
       });
       const restaurant = await restaurantService.update(1, {
-        _id: 1,
-        name: 'Expresso pro',
-        price: '$'
+        ...object
       });
       expect(restaurant).toMatchObject({
-        _id: 1,
-        name: 'Expresso pro',
-        price: '$'
+        ...object
       });
     });
   });
@@ -99,9 +93,7 @@ describe('update', () => {
       Restaurant.findByIdAndUpdate = jest.fn(() => null);
       expect(async () => {
         await restaurantService.update(1, {
-          _id: 1,
-          name: 'Expresso pro',
-          price: '$'
+          ...object
         });
       }).rejects.toThrow('Restaurant id not exist');
     });
@@ -113,16 +105,12 @@ describe('remove', () => {
     it('should remove and return removed restaurant', async () => {
       Restaurant.findByIdAndRemove = jest.fn((id) => {
         return {
-          _id: id,
-          name: 'Expresso',
-          price: '$'
+          ...object
         };
       });
       const restaurant = await restaurantService.remove(1);
       expect(restaurant).toMatchObject({
-        _id: 1,
-        name: 'Expresso',
-        price: '$'
+        ...object
       });
     });
   });
