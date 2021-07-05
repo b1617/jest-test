@@ -35,15 +35,23 @@ describe('getRestaurantById', () => {
   });
 });
 
-// describe('createRestaurant', () => {
-//   describe('when restaurant is not taken', () => {
-//     it('shoud create restaurant', async () => {
-//       console.log('restaurant', restaurant);
-//       const response = await request.post(`/restaurants`).send(restaurant);
-//       console.log('response' , response.body);
-//       expect(response.body).toMatchObject({
-//         ...restaurant
-//       });
-//     });
-//   });
-// });
+describe('createRestaurant', () => {
+  describe('when restaurant name is not taken', () => {
+    it('shoud create restaurant', async () => {
+      const object = { name: 'Expresso', price: '$' };
+      const response = await request.post(`/restaurants`).send(object);
+      expect(response.status).toBe(200);
+      expect(response.body).toMatchObject({
+        ...object
+      });
+    });
+  });
+
+  describe('when restaurant name is taken', () => {
+    it('shoud throw error', async () => {
+      const response = await request.post(`/restaurants`).send(object);
+      expect(response.status).toBe(400);
+      expect(response.text).toMatch('Restaurant name is already taken');
+    });
+  });
+});
