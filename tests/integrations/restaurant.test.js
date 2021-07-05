@@ -55,3 +55,52 @@ describe('createRestaurant', () => {
     });
   });
 });
+
+describe('updateRestaurant', () => {
+  describe('when restaurant id exist', () => {
+    it('should update restaurant and return new object', async () => {
+      const object = { name: 'testUpdate', price: '$$' };
+      const response = await request
+        .put(`/restaurants/${restaurant._id}`)
+        .send(object);
+      expect(response.status).toBe(200);
+      expect(response.body).toMatchObject({
+        _id: restaurant._id.toString(),
+        ...object
+      });
+    });
+  });
+
+  describe('when restaurant id not exist', () => {
+    it('shoud throw error', async () => {
+      const objectId = new mongoose.Types.ObjectId();
+      const response = await request
+        .put(`/restaurants/${objectId}`)
+        .send(object);
+      expect(response.status).toBe(400);
+      expect(response.text).toMatch('Restaurant id not exist');
+    });
+  });
+});
+
+describe('removeRestaurant', () => {
+  describe('when restaurant id exist', () => {
+    it('should remove restaurant and return it', async () => {
+      const response = await request.delete(`/restaurants/${restaurant._id}`);
+      expect(response.status).toBe(200);
+      expect(response.body).toMatchObject({
+        _id: restaurant._id.toString(),
+        ...object
+      });
+    });
+  });
+
+  describe('when restaurant id not exist', () => {
+    it('shoud throw error', async () => {
+      const objectId = new mongoose.Types.ObjectId();
+      const response = await request.delete(`/restaurants/${objectId}`);
+      expect(response.status).toBe(400);
+      expect(response.text).toMatch('Restaurant id not exist');
+    });
+  });
+});
